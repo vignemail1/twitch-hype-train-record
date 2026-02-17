@@ -1,7 +1,7 @@
 // Configuration Twitch OAuth
 const CONFIG = {
     clientId: 'YOUR_TWITCH_CLIENT_ID', // À remplacer par votre Client ID
-    redirectUri: window.location.origin + window.location.pathname,
+    redirectUri: window.location.origin + window.location.pathname.replace(/\/$/, '') + '/',
     scopes: ['channel:read:hype_train'],
     apiBaseUrl: 'https://api.twitch.tv/helix'
 };
@@ -27,6 +27,9 @@ class TwitchAuth {
             response_type: 'token',
             scope: CONFIG.scopes.join(' ')
         });
+        
+        console.log('Redirect URI:', CONFIG.redirectUri);
+        console.log('OAuth URL:', `https://id.twitch.tv/oauth2/authorize?${params.toString()}`);
         
         window.location.href = `https://id.twitch.tv/oauth2/authorize?${params.toString()}`;
     }
@@ -345,20 +348,28 @@ class App {
     }
 
     async init() {
-        // Vérifie la configuration
-        if (CONFIG.clientId === 'YOUR_TWITCH_CLIENT_ID') {
-            this.ui.showError('Erreur de configuration: Client ID Twitch non défini. Veuillez configurer votre application.');
-            return;
-        }
+        console.log('Initialisation de l\'application...');
+        console.log('Client ID configuré:', CONFIG.clientId !== 'YOUR_TWITCH_CLIENT_ID');
+        console.log('Redirect URI:', CONFIG.redirectUri);
 
         // Gestion des événements
-        this.ui.elements.loginBtn.addEventListener('click', () => this.auth.login());
+        this.ui.elements.loginBtn.addEventListener('click', () => {
+            console.log('Bouton de connexion cliqué');
+            if (CONFIG.clientId === 'YOUR_TWITCH_CLIENT_ID') {
+                this.ui.showError('Erreur de configuration: Client ID Twitch non défini. Veuillez modifier app.js et remplacer YOUR_TWITCH_CLIENT_ID par votre Client ID.');
+                return;
+            }
+            this.auth.login();
+        });
+        
         this.ui.elements.logoutBtn.addEventListener('click', () => this.auth.logout());
 
         // Vérifie l'authentification
         if (this.auth.handleCallback()) {
+            console.log('Token trouvé, authentification en cours...');
             await this.handleAuthenticated();
         } else {
+            console.log('Pas de token, affichage de la page de connexion');
             this.ui.showLoginSection();
         }
     }
@@ -401,5 +412,6 @@ class App {
 
 // Initialisation de l'application
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM chargé, démarrage de l\'application...');
     new App();
 });
