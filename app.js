@@ -1,6 +1,7 @@
 // Configuration Twitch OAuth
+// Le Client ID est désormais chargé depuis config.js
 const CONFIG = {
-    clientId: 'YOUR_TWITCH_CLIENT_ID', // À remplacer par votre Client ID
+    clientId: window.TWITCH_CONFIG?.clientId || null,
     redirectUri: window.location.origin + window.location.pathname.replace(/\/$/, '') + '/',
     scopes: ['channel:read:hype_train'],
     apiBaseUrl: 'https://api.twitch.tv/helix'
@@ -344,14 +345,14 @@ class App {
 
     async init() {
         console.log('Initialisation de l\'application...');
-        console.log('Client ID configuré:', CONFIG.clientId !== 'YOUR_TWITCH_CLIENT_ID');
+        console.log('Client ID configuré:', !!CONFIG.clientId);
         console.log('Redirect URI:', CONFIG.redirectUri);
 
         // Gestion des événements
         this.ui.elements.loginBtn.addEventListener('click', () => {
             console.log('Bouton de connexion cliqué');
-            if (CONFIG.clientId === 'YOUR_TWITCH_CLIENT_ID') {
-                this.ui.showError('Erreur de configuration: Client ID Twitch non défini. Veuillez modifier app.js et remplacer YOUR_TWITCH_CLIENT_ID par votre Client ID.');
+            if (!CONFIG.clientId) {
+                this.ui.showError('Erreur de configuration: Client ID Twitch non défini. Veuillez créer un fichier config.js à partir de config.template.js et y ajouter votre Client ID.');
                 return;
             }
             this.auth.login();
