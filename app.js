@@ -180,6 +180,16 @@ class UI {
             sharedAllTimeHighDate: document.getElementById('shared-all-time-high-date'),
             errorMessage: document.getElementById('error-message')
         };
+        
+        // Liste des sections à gérer pour l'affichage/masquage
+        this.sections = [
+            this.elements.loginSection,
+            this.elements.userSection,
+            this.elements.currentTrainSection,
+            this.elements.recordsSection,
+            this.elements.errorSection,
+            this.elements.loadingSection
+        ];
     }
 
     // Affiche la section de connexion
@@ -212,11 +222,11 @@ class UI {
         this.elements.errorMessage.textContent = message;
     }
 
-    // Cache toutes les sections
+    // Cache toutes les sections (mais pas les éléments enfants comme les boutons)
     hideAll() {
-        Object.values(this.elements).forEach(element => {
-            if (element && element.classList) {
-                element.classList.add('hidden');
+        this.sections.forEach(section => {
+            if (section) {
+                section.classList.add('hidden');
             }
         });
     }
