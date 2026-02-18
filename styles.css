@@ -10,6 +10,7 @@
     --text-secondary: #adadb8;
     --border-color: #2d2d35;
     --error-color: #ec1818;
+    --info-color: #4a9eff;
 }
 
 * {
@@ -169,6 +170,90 @@ header h1 {
 }
 
 .info-box a:hover {
+    text-decoration: underline;
+}
+
+/* Disclaimer card */
+.disclaimer-card {
+    background: var(--surface-light);
+    border-left: 4px solid var(--info-color);
+    margin-top: 2rem;
+}
+
+.disclaimer-card:hover {
+    transform: none;
+}
+
+.disclaimer-card h3 {
+    color: var(--info-color);
+    margin-bottom: 1rem;
+}
+
+.disclaimer-content {
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+.disclaimer-content p {
+    margin-bottom: 1rem;
+}
+
+.disclaimer-content strong {
+    color: var(--text-primary);
+}
+
+.disclaimer-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0.75rem 0;
+}
+
+.disclaimer-list li {
+    padding: 0.4rem 0 0.4rem 1.5rem;
+    position: relative;
+    color: var(--text-secondary);
+}
+
+.disclaimer-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0.5rem;
+    color: var(--info-color);
+    font-weight: bold;
+}
+
+.disclaimer-note {
+    margin-top: 1.5rem;
+    color: var(--text-primary);
+}
+
+.disclaimer-settings {
+    background: var(--background);
+    padding: 1rem;
+    border-radius: 6px;
+    margin: 1rem 0;
+    border-left: 3px solid var(--primary-color);
+}
+
+.disclaimer-settings em {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.disclaimer-footer {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.disclaimer-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.disclaimer-footer a:hover {
     text-decoration: underline;
 }
 
