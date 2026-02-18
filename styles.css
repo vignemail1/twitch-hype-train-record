@@ -81,8 +81,6 @@ header h1 {
 .security-notice-content strong {
     color: var(--privacy-color);
     font-size: 1.1rem;
-    display: block;
-    margin-bottom: 0.5rem;
 }
 
 .security-notice-content p {
@@ -92,7 +90,7 @@ header h1 {
     margin: 0;
 }
 
-.security-notice-content strong:not(:first-child) {
+.security-notice-content p strong {
     color: var(--text-primary);
 }
 
